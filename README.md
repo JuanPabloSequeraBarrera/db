@@ -473,3 +473,93 @@
 +----------------+----------------------+----------------+
 ```
 
+
+
+8.  Devuelve un listado con el nombre de los empleados junto con el nombre
+   de sus jefes.
+
+   ```
+    e.nombre AS nombre_empleado,     e.apellido1 AS apellido1_empleado,     e.apellido2 AS apellido2_empleado,     j.nombre AS nombre_jefe,     j.apellido1 AS apellido1_jefe,     j.apellido2 AS apellido2_jefe FROM     empleado e LEFT JOIN     empleado j ON e.codigo_jefe = j.codigo_empleado;
+   +-----------------+--------------------+--------------------+-------------+----------------+----------------+
+   | nombre_empleado | apellido1_empleado | apellido2_empleado | nombre_jefe | apellido1_jefe | apellido2_jefe |
+   +-----------------+--------------------+--------------------+-------------+----------------+----------------+
+   | Johlver         | Pardo              | Garcia             | NULL        | NULL           | NULL           |
+   | Jose            | Manuel             | Pardo              | NULL        | NULL           | NULL           |
+   | Juan            | Pablo              | Sequera            | NULL        | NULL           | NULL           |
+   +-----------------+--------------------+--------------------+-------------+----------------+----------------+	
+   
+   
+   ```
+
+   9. **Devuelve un listado que muestre el nombre de cada empleados, el nombre* *de su jefe y el nombre del jefe de sus jefe.*.*
+
+   
+
+     ```mysql
+   INSERT INTO empleado (codigo_empleado, nombre, apellido1, apellido2, extension, email, codigo_oficina, codigo_jefe, puesto) VALUES
+   (67, 'josep', 'jerez', 'perez', '098, 'jerez@gmail.com', 'OF1', 11, 'Empleado');
+   
+   SELECT
+   e.nombre AS Empleado,
+   a.nombre AS Jefe_menor,
+   b.nombre AS Jefe_mayor
+   FROM
+   empleado e
+   JOIN 
+   empleado a ON a.codigo_empleado=e.codigo_jefe
+   JOIN 
+   empleado b ON b.codigo_empleado=a.codigo_jefe
+   WHERE 
+   e.codigo_empleado!=e.codigo_jefe
+     ```
+
+
+
+
+10. *Devuelve el nombre de los clientes a los que no se les ha entregado a* *tiempo un pedido.*
+
+10. ```
+    SELECT
+        -> c.nombre_cliente,
+        -> p.codigo_pedido
+        -> FROM
+        -> pedido p
+        -> JOIN
+        -> cliente c ON p.codigo_cliente=c.codigo_cliente
+        -> WHERE
+        -> p.estado != 'Entregado';
+    +----------------+---------------+
+    | nombre_cliente | codigo_pedido |
+    +----------------+---------------+
+    | Goku           |             2 |
+    | Rick           |             3 |
+    +----------------+---------------+
+    ```
+
+11. *Devuelve un listado de las diferentes gamas de producto que ha comprado* *cada cliente.*
+
+    ```
+    SELECT
+        -> c.nombre_cliente,
+        -> g.gama,
+        -> g.descripcion_texto AS descripcion
+        -> FROM
+        -> cliente c
+        -> JOIN
+        -> pedido p ON c.codigo_cliente=p.codigo_cliente
+        -> JOIN
+        -> detalle_pedido d ON p.codigo_pedido=d.codigo_pedido
+        -> JOIN
+        -> producto pr ON d.codigo_producto=pr.codigo_producto
+        -> JOIN
+        -> gama_producto g ON pr.gama=g.gama
+        -> ;
+    +----------------+--------------+--------------------+
+    | nombre_cliente | gama         | descripcion        |
+    +----------------+--------------+--------------------+
+    | Goku           | Indoor       | Productos interior |
+    | Rick           | Ornamentales | Productos exterior |
+    +----------------+--------------+--------------------+
+    ```
+
+    
