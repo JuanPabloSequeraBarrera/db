@@ -95,3 +95,4 @@ CREATE TABLE pago (
     total DECIMAL(15,2),
     FOREIGN KEY (codigo_cliente) REFERENCES cliente(codigo_cliente)
 );
+
