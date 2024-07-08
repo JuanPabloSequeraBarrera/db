@@ -124,7 +124,7 @@
        -> FROM
        ->     pago
        -> WHERE YEAR(fecha_pago) = 2024;
-   --------------------------------------------------------------
+   -------------------------------------
    SELECT
        ->     codigo_cliente,
        ->     forma_pago,
@@ -383,7 +383,11 @@
     *representantes junto con la ciudad de la oficina a la que pertenece elrepresentante.*
 
   ```mysql
-   SELECT     cliente.nombre_cliente,     empleado.nombre AS nombre_representante,     empleado.apellido1 AS apellido_representante,     oficina.ciudad 
+   SELECT     
+   cliente.nombre_cliente,     
+   empleado.nombre AS nombre_representante,     
+   empleado.apellido1 AS apellido_representante,     
+   oficina.ciudad 
   FROM     cliente 
   JOIN     empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado 
   JOIN     oficina ON empleado.codigo_oficina = oficina.codigo_oficina 
